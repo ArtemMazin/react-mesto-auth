@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Route, Routes, Navigate } from 'react-router-dom';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import Footer from './Footer';
 import Header from './Header';
@@ -20,6 +21,7 @@ function App() {
   const [currentUser, setCurrentUser] = useState({});
   const [cards, setCards] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(false);
 
   //валидацию пока оставлю здесь, т.к. постараюсь ее доработать, после чего перенесу
   const [isFormValid, setIsFormValid] = useState(false);
@@ -152,6 +154,24 @@ function App() {
     <CurrentUserContext.Provider value={currentUser}>
       <div>
         <Header />
+        {/* <Routes>
+          <Route
+            path="/"
+            element={
+              loggedIn ? (
+                <Navigate
+                  to="/"
+                  replace
+                />
+              ) : (
+                <Navigate
+                  to="/sign-in"
+                  replace
+                />
+              )
+            }
+          />
+        </Routes> */}
         <Main
           onEditProfile={handleEditProfileClick}
           onAddPlace={handleAddPlaceClick}
