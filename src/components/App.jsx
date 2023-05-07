@@ -10,6 +10,7 @@ import AddPlacePopup from './AddPlacePopup';
 import EditProfilePopup from './EditProfilePopup';
 import EditAvatarPopup from './EditAvatarPopup';
 import PopupWithSubmit from './PopupWithSubmit';
+import Login from './Login';
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
@@ -172,6 +173,7 @@ function App() {
             }
           />
         </Routes> */}
+        <Login />
         <Main
           onEditProfile={handleEditProfileClick}
           onAddPlace={handleAddPlaceClick}
