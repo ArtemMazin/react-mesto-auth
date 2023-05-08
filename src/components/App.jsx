@@ -11,6 +11,7 @@ import EditProfilePopup from './EditProfilePopup';
 import EditAvatarPopup from './EditAvatarPopup';
 import PopupWithSubmit from './PopupWithSubmit';
 import Login from './Login';
+import Register from './Register';
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
@@ -173,6 +174,7 @@ function App() {
             }
           />
         </Routes> */}
+        <Register />
         <Login />
         <Main
           onEditProfile={handleEditProfileClick}
