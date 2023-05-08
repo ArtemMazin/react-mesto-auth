@@ -12,6 +12,7 @@ import EditAvatarPopup from './EditAvatarPopup';
 import PopupWithSubmit from './PopupWithSubmit';
 import Login from './Login';
 import Register from './Register';
+import ProtectedRouteElement from './ProtectedRoute';
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
@@ -155,36 +156,42 @@ function App() {
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div>
-        <Header />
-        {/* <Routes>
+        <Header loggedIn={loggedIn} />
+        <Routes>
+          <Route
+            path="/sign-up"
+            element={<Register />}
+          />
+          <Route
+            path="/sign-in"
+            element={<Login />}
+          />
           <Route
             path="/"
             element={
-              loggedIn ? (
-                <Navigate
-                  to="/"
-                  replace
-                />
-              ) : (
-                <Navigate
-                  to="/sign-in"
-                  replace
-                />
-              )
+              <ProtectedRouteElement
+                element={Main}
+                loggedIn={loggedIn}
+                onEditProfile={handleEditProfileClick}
+                onAddPlace={handleAddPlaceClick}
+                onEditAvatar={handleEditAvatarClick}
+                onCardClick={handleCardClick}
+                cards={cards}
+                onCardLike={handleCardLike}
+                onRemoveIconClick={handleRemoveIconClick}
+              />
             }
           />
-        </Routes> */}
-        <Register />
-        <Login />
-        <Main
-          onEditProfile={handleEditProfileClick}
-          onAddPlace={handleAddPlaceClick}
-          onEditAvatar={handleEditAvatarClick}
-          onCardClick={handleCardClick}
-          cards={cards}
-          onCardLike={handleCardLike}
-          onRemoveIconClick={handleRemoveIconClick}
-        />
+          <Route
+            path="*"
+            element={
+              <Navigate
+                to="/"
+                replace
+              />
+            }
+          />
+        </Routes>
         <Footer />
         <EditProfilePopup
           isOpen={isEditProfilePopupOpen}
