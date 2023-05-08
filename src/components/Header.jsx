@@ -5,10 +5,6 @@ import logo from '../images/logo.svg';
 function Header({ loggedIn }) {
   const location = useLocation();
 
-  useEffect(() => {
-    console.log('Current location is ', location);
-  }, [location]);
-
   return (
     <header className="header wrapper">
       <img
@@ -27,6 +23,7 @@ function Header({ loggedIn }) {
         </div>
       ) : (
         <Link
+          //location.pathname показывает текущее местоположение
           to={location.pathname === '/sign-up' ? '/sign-in' : '/sign-up'}
           className="header__link">
           {location.pathname === '/sign-up' ? 'Войти' : 'Регистрация'}
