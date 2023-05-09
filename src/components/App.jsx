@@ -26,11 +26,11 @@ function App() {
   const [cards, setCards] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
+  const [email, setEmail] = useState('');
 
   const navigate = useNavigate();
 
   function handleLogin() {
-    // e.preventDefault();
     setLoggedIn(true);
   }
 
@@ -44,6 +44,7 @@ function App() {
     if (token) {
       apiAuth.getContent(token).then((res) => {
         if (res) {
+          setEmail(res.data.email);
           // авторизуем пользователя
           setLoggedIn(true);
           navigate('/', { replace: true });
@@ -182,7 +183,11 @@ function App() {
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div>
-        <Header loggedIn={loggedIn} />
+        <Header
+          loggedIn={loggedIn}
+          email={email}
+          setLoggedIn={setLoggedIn}
+        />
         <Routes>
           <Route
             path="/sign-up"

@@ -28,7 +28,6 @@ function Login({ handleLogin }) {
     apiAuth
       .login(email, password)
       .then((data) => {
-        console.log(data);
         if (data.token) {
           setFormValue({ email: '', password: '' });
           handleLogin();

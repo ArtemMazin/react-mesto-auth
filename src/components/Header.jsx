@@ -1,9 +1,14 @@
-import { useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import logo from '../images/logo.svg';
 
-function Header({ loggedIn }) {
+function Header({ loggedIn, setLoggedIn, email }) {
   const location = useLocation();
+  const navigate = useNavigate();
+  function signOut() {
+    localStorage.removeItem('token');
+    setLoggedIn(false);
+    navigate('/sign-in');
+  }
 
   return (
     <header className="header wrapper">
@@ -14,10 +19,11 @@ function Header({ loggedIn }) {
       />
       {loggedIn ? (
         <div className="header__profile">
-          <p className="header__email">email@mail.com</p>
+          <p className="header__email">{email}</p>
           <button
             type="button"
-            className="header__button">
+            className="header__button"
+            onClick={signOut}>
             Выйти
           </button>
         </div>
