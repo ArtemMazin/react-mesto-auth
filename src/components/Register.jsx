@@ -20,6 +20,9 @@ function Register() {
   const navigate = useNavigate();
   function handleSubmit(e) {
     e.preventDefault();
+    // if (!formValue.email || !formValue.password) {
+    //   return;
+    // }
     const { email, password } = formValue;
     apiAuth.register(email, password).then((res) => {
       navigate('/sign-in', { replace: true });

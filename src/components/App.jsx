@@ -26,6 +26,11 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
 
+  function handleLogin() {
+    // e.preventDefault();
+    setLoggedIn(true);
+  }
+
   //валидацию пока оставлю здесь, т.к. постараюсь ее доработать, после чего перенесу
   const [isFormValid, setIsFormValid] = useState(false);
   const [errors, setErrors] = useState({});
@@ -164,7 +169,7 @@ function App() {
           />
           <Route
             path="/sign-in"
-            element={<Login />}
+            element={<Login handleLogin={handleLogin} />}
           />
           <Route
             path="/"
