@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Route, Routes, Navigate } from 'react-router-dom';
+import { Route, Routes, Navigate, useNavigate } from 'react-router-dom';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import Footer from './Footer';
 import Header from './Header';
@@ -13,6 +13,7 @@ import PopupWithSubmit from './PopupWithSubmit';
 import Login from './Login';
 import Register from './Register';
 import ProtectedRouteElement from './ProtectedRoute';
+import * as apiAuth from '../utils/apiAuth';
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
@@ -26,9 +27,29 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
 
+  const navigate = useNavigate();
+
   function handleLogin() {
     // e.preventDefault();
     setLoggedIn(true);
+  }
+
+  //токен
+  useEffect(() => {
+    tokenCheck();
+  }, []);
+
+  function tokenCheck() {
+    const token = localStorage.getItem('token');
+    if (token) {
+      apiAuth.getContent(token).then((res) => {
+        if (res) {
+          // авторизуем пользователя
+          setLoggedIn(true);
+          navigate('/', { replace: true });
+        }
+      });
+    }
   }
 
   //валидацию пока оставлю здесь, т.к. постараюсь ее доработать, после чего перенесу
