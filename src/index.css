@@ -61,3 +61,23 @@
 @import url(./blocks/popup/__description/popup__description.css);
 @import url(./blocks/popup/_background/popup_background_light.css);
 @import url(./blocks/popup/_background/popup_background_dark.css);
+
+.popup__container_info-tool-tip {
+  padding: 60px 36px;
+}
+.popup__info-tool-tip-icon {
+  width: 120px;
+  height: 120px;
+  margin: 0 auto 32px auto;
+}
+.popup__info-tool-tip-icon_type_success {
+  background: url(../src/images/Success-icon.svg) no-repeat;
+}
+.popup__info-tool-tip-icon_type_fail {
+  background: url(../src/images/Fail-icon.svg) no-repeat;
+}
+
+.popup__title_info-tool-tip {
+  margin: 0;
+  text-align: center;
+}

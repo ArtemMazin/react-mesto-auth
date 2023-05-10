@@ -2,7 +2,8 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import * as apiAuth from '../utils/apiAuth';
 
-function Register() {
+function Register({ showInfoTooltip, setIsRegistrationSuccess }) {
+  const navigate = useNavigate();
   const [formValue, setFormValue] = useState({
     email: '',
     password: '',
@@ -17,16 +18,24 @@ function Register() {
     });
   }
 
-  const navigate = useNavigate();
   function handleSubmit(e) {
     e.preventDefault();
     // if (!formValue.email || !formValue.password) {
     //   return;
     // }
     const { email, password } = formValue;
-    apiAuth.register(email, password).then((res) => {
-      navigate('/sign-in', { replace: true });
-    });
+    apiAuth
+      .register(email, password)
+      .then((res) => {
+        setIsRegistrationSuccess(true);
+        showInfoTooltip();
+        navigate('/sign-in', { replace: true });
+      })
+      .catch((err) => {
+        console.log(err);
+        setIsRegistrationSuccess(false);
+        showInfoTooltip();
+      });
   }
 
   return (

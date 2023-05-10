@@ -14,6 +14,7 @@ import Login from './Login';
 import Register from './Register';
 import ProtectedRouteElement from './ProtectedRoute';
 import * as apiAuth from '../utils/apiAuth';
+import InfoTooltip from './InfoTooltip';
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
@@ -21,12 +22,14 @@ function App() {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
   const [isImagePopupOpen, setIsImagePopupOpen] = useState(false);
   const [isPopupWithSubmit, setIsPopupWithSubmit] = useState(false);
+  const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState(null);
   const [currentUser, setCurrentUser] = useState({});
   const [cards, setCards] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
   const [email, setEmail] = useState('');
+  const [isRegistrationSuccess, setIsRegistrationSuccess] = useState(false);
 
   const navigate = useNavigate();
 
@@ -93,6 +96,13 @@ function App() {
     setSelectedCard(card);
     setIsImagePopupOpen(true);
   }
+  function showInfoTooltip() {
+    setIsInfoTooltipOpen(true);
+  }
+
+  function navigateToLogin() {
+    navigate('/', { replace: true });
+  }
 
   function closeAllPopups() {
     setIsEditProfilePopupOpen(false);
@@ -100,6 +110,7 @@ function App() {
     setIsAddPlacePopupOpen(false);
     setIsImagePopupOpen(false);
     setIsPopupWithSubmit(false);
+    setIsInfoTooltipOpen(false);
     setSelectedCard(null);
     setErrors({});
   }
@@ -191,7 +202,12 @@ function App() {
         <Routes>
           <Route
             path="/sign-up"
-            element={<Register />}
+            element={
+              <Register
+                showInfoTooltip={showInfoTooltip}
+                setIsRegistrationSuccess={setIsRegistrationSuccess}
+              />
+            }
           />
           <Route
             path="/sign-in"
@@ -275,6 +291,12 @@ function App() {
           isOpen={isImagePopupOpen}
           card={selectedCard}
           onClose={closeAllPopups}
+        />
+        <InfoTooltip
+          isOpen={isInfoTooltipOpen}
+          onClose={closeAllPopups}
+          navigateToLogin={navigateToLogin}
+          isRegistrationSuccess={isRegistrationSuccess}
         />
       </div>
     </CurrentUserContext.Provider>
