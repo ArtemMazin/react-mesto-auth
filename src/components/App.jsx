@@ -45,14 +45,17 @@ function App() {
   function tokenCheck() {
     const token = localStorage.getItem('token');
     if (token) {
-      apiAuth.getContent(token).then((res) => {
-        if (res) {
-          setEmail(res.data.email);
-          // авторизуем пользователя
-          setLoggedIn(true);
-          navigate('/', { replace: true });
-        }
-      });
+      apiAuth
+        .getContent(token)
+        .then((res) => {
+          if (res) {
+            setEmail(res.data.email);
+            // авторизуем пользователя
+            setLoggedIn(true);
+            navigate('/', { replace: true });
+          }
+        })
+        .catch((err) => console.log(err));
     }
   }
 
@@ -98,10 +101,6 @@ function App() {
   }
   function showInfoTooltip() {
     setIsInfoTooltipOpen(true);
-  }
-
-  function navigateToLogin() {
-    navigate('/', { replace: true });
   }
 
   function closeAllPopups() {
@@ -295,7 +294,6 @@ function App() {
         <InfoTooltip
           isOpen={isInfoTooltipOpen}
           onClose={closeAllPopups}
-          navigateToLogin={navigateToLogin}
           isRegistrationSuccess={isRegistrationSuccess}
         />
       </div>

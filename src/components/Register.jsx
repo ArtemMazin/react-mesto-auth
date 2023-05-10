@@ -33,8 +33,8 @@ function Register({ showInfoTooltip, setIsRegistrationSuccess }) {
       })
       .catch((err) => {
         console.log(err);
-        setIsRegistrationSuccess(false);
         showInfoTooltip();
+        navigate('/sign-up', { replace: true });
       });
   }
 
