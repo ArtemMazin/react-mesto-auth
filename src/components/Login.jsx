@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import * as apiAuth from '../utils/apiAuth';
 
-function Login({ handleLogin }) {
+function Login({ handleLogin, setEmail }) {
   const [formValue, setFormValue] = useState({
     email: '',
     password: '',
@@ -29,6 +29,7 @@ function Login({ handleLogin }) {
       .login(email, password)
       .then((data) => {
         if (data.token) {
+          setEmail(email);
           setFormValue({ email: '', password: '' });
           handleLogin();
           navigate('/', { replace: true });

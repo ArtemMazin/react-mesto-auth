@@ -195,7 +195,12 @@ function App() {
           />
           <Route
             path="/sign-in"
-            element={<Login handleLogin={handleLogin} />}
+            element={
+              <Login
+                handleLogin={handleLogin}
+                setEmail={setEmail}
+              />
+            }
           />
           <Route
             path="/"
@@ -223,7 +228,7 @@ function App() {
             }
           />
         </Routes>
-        <Footer />
+        {loggedIn && <Footer />}
         <EditProfilePopup
           isOpen={isEditProfilePopupOpen}
           onClose={closeAllPopups}
