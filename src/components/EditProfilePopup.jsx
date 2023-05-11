@@ -1,24 +1,16 @@
 import { useState, useEffect, useContext } from 'react';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import PopupWithForm from './PopupWithForm';
+import { useValidation } from '../hooks/useValidation';
 
-function EditProfilePopup({
-  isOpen,
-  onClose,
-  onUpdateUser,
-  onUpdateValid,
-  isValid,
-  setIsFormValid,
-  handleChangeErrorsValidation,
-  errors,
-  isLoading,
-}) {
+function EditProfilePopup({ isOpen, onClose, onUpdateUser, isLoading }) {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const currentUser = useContext(CurrentUserContext);
+  const { isFormValid, errors, setErrors, checkFormValid, handleChangeErrorsValidation } = useValidation();
 
   useEffect(() => {
-    setIsFormValid(false);
+    setErrors({});
   }, [isOpen]);
 
   useEffect(() => {
@@ -51,7 +43,7 @@ function EditProfilePopup({
       isOpen={isOpen}
       onClose={onClose}
       onSubmit={handleSubmit}
-      isValid={isValid}>
+      isValid={isFormValid}>
       <label>
         <input
           className="popup__input popup__input_type_name "
@@ -63,13 +55,13 @@ function EditProfilePopup({
           maxLength="40"
           onChange={(e) => {
             handleChangeName(e);
-            onUpdateValid(e);
+            checkFormValid(e);
             handleChangeErrorsValidation(e);
           }}
           value={name || ''}
         />
         <span
-          className={`popup__input-error  ${!isValid ? 'popup__input-error_active' : ''}`}
+          className={`popup__input-error  ${!isFormValid ? 'popup__input-error_active' : ''}`}
           id="name-error">
           {errors.name || ''}
         </span>
@@ -79,17 +71,17 @@ function EditProfilePopup({
           name="job"
           placeholder="Введите профессию"
           required
-          minLength="2"
+          minLength="6"
           maxLength="200"
           onChange={(e) => {
             handleChangeDescription(e);
-            onUpdateValid(e);
+            checkFormValid(e);
             handleChangeErrorsValidation(e);
           }}
           value={description || ''}
         />
         <span
-          className={`popup__input-error  ${!isValid ? 'popup__input-error_active' : ''}`}
+          className={`popup__input-error  ${!isFormValid ? 'popup__input-error_active' : ''}`}
           id="job-error">
           {errors.job || ''}
         </span>

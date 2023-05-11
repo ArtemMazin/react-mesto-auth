@@ -301,33 +301,18 @@ function App() {
           isOpen={isEditProfilePopupOpen}
           onClose={closeAllPopups}
           onUpdateUser={handleUpdateUser}
-          onUpdateValid={checkFormValid}
-          isValid={isFormValid}
-          setIsFormValid={setIsFormValid}
-          handleChangeErrorsValidation={handleChangeErrorsValidation}
-          errors={errors}
           isLoading={isLoading}
         />
         <EditAvatarPopup
           isOpen={isEditAvatarPopupOpen}
           onClose={closeAllPopups}
           onUpdateAvatar={handleUpdateAvatar}
-          onUpdateValid={checkFormValid}
-          isValid={isFormValid}
-          setIsFormValid={setIsFormValid}
-          handleChangeErrorsValidation={handleChangeErrorsValidation}
-          errors={errors}
           isLoading={isLoading}
         />
         <AddPlacePopup
           isOpen={isAddPlacePopupOpen}
           onClose={closeAllPopups}
           onAddPlaceSubmit={handleAddPlaceSubmit}
-          onUpdateValid={checkFormValid}
-          isValid={isFormValid}
-          setIsFormValid={setIsFormValid}
-          handleChangeErrorsValidation={handleChangeErrorsValidation}
-          errors={errors}
           isLoading={isLoading}
         />
         <PopupWithSubmit

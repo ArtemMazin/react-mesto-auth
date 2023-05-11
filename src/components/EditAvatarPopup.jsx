@@ -1,21 +1,13 @@
 import { useRef, useEffect } from 'react';
 import PopupWithForm from './PopupWithForm';
+import { useValidation } from '../hooks/useValidation';
 
-function EditAvatarPopup({
-  isOpen,
-  onClose,
-  onUpdateAvatar,
-  onUpdateValid,
-  isValid,
-  setIsFormValid,
-  handleChangeErrorsValidation,
-  errors,
-  isLoading,
-}) {
+function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar, isLoading }) {
+  const { isFormValid, errors, setErrors, checkFormValid, handleChangeErrorsValidation } = useValidation();
   const input = useRef();
 
   useEffect(() => {
-    setIsFormValid(false);
+    setErrors(false);
   }, [isOpen]);
 
   function handleSubmit(e) {
@@ -37,7 +29,7 @@ function EditAvatarPopup({
       isOpen={isOpen}
       onClose={onClose}
       onSubmit={handleSubmit}
-      isValid={isValid}>
+      isValid={isFormValid}>
       <label>
         <input
           className="popup__input popup__input_type_name"
@@ -47,12 +39,12 @@ function EditAvatarPopup({
           required
           ref={input}
           onChange={(e) => {
-            onUpdateValid(e);
+            checkFormValid(e);
             handleChangeErrorsValidation(e);
           }}
         />
         <span
-          className={`popup__input-error  ${!isValid ? 'popup__input-error_active' : ''}`}
+          className={`popup__input-error  ${!isFormValid ? 'popup__input-error_active' : ''}`}
           id="avatar-error">
           {errors.avatar || ''}
         </span>

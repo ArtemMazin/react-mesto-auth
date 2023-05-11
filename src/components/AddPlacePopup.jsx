@@ -1,22 +1,14 @@
 import { useEffect, useState } from 'react';
 import PopupWithForm from './PopupWithForm';
+import { useValidation } from '../hooks/useValidation';
 
-function AddPlacePopup({
-  isOpen,
-  onClose,
-  onAddPlaceSubmit,
-  onUpdateValid,
-  isValid,
-  setIsFormValid,
-  handleChangeErrorsValidation,
-  errors,
-  isLoading,
-}) {
+function AddPlacePopup({ isOpen, onClose, onAddPlaceSubmit, isLoading }) {
   const [name, setName] = useState('');
   const [link, setLink] = useState('');
+  const { isFormValid, errors, setErrors, checkFormValid, handleChangeErrorsValidation } = useValidation();
 
   useEffect(() => {
-    setIsFormValid(false);
+    setErrors(false);
   }, [isOpen]);
 
   useEffect(() => {
@@ -49,7 +41,7 @@ function AddPlacePopup({
       isOpen={isOpen}
       onClose={onClose}
       onSubmit={handleSubmit}
-      isValid={isValid}>
+      isValid={isFormValid}>
       <label>
         <input
           className="popup__input popup__input_type_name"
@@ -63,12 +55,12 @@ function AddPlacePopup({
           maxLength="30"
           onChange={(e) => {
             handleChangeName(e);
-            onUpdateValid(e);
+            checkFormValid(e);
             handleChangeErrorsValidation(e);
           }}
         />
         <span
-          className={`popup__input-error  ${!isValid ? 'popup__input-error_active' : ''}`}
+          className={`popup__input-error  ${!isFormValid ? 'popup__input-error_active' : ''}`}
           id="cards_input_name-error">
           {errors.cards_input_name}
         </span>
@@ -82,12 +74,12 @@ function AddPlacePopup({
           required
           onChange={(e) => {
             handleChangeLink(e);
-            onUpdateValid(e);
+            checkFormValid(e);
             handleChangeErrorsValidation(e);
           }}
         />
         <span
-          className={`popup__input-error  ${!isValid ? 'popup__input-error_active' : ''}`}
+          className={`popup__input-error  ${!isFormValid ? 'popup__input-error_active' : ''}`}
           id="cards_input_link-error">
           {errors.cards_input_link}
         </span>
