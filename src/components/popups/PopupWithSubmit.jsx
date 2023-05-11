@@ -1,12 +1,16 @@
 import { useEffect } from 'react';
 import PopupWithForm from './PopupWithForm';
+import { useValidation } from '../../hooks/useValidation';
 
-function PopupWithSubmit({ isOpen, onClose, onSubmit, card, setIsFormValid, isValid, isLoading }) {
+function PopupWithSubmit({ isOpen, onClose, onSubmit, card, isLoading }) {
+  const { isFormValid, setIsFormValid } = useValidation();
+
   const handleSubmit = (e) => {
     e.preventDefault();
     onSubmit(card);
   };
 
+  //в этом попапе кнопка должна быть активной при открытии попапа
   useEffect(() => {
     setIsFormValid(true);
   }, [isOpen]);
@@ -19,7 +23,7 @@ function PopupWithSubmit({ isOpen, onClose, onSubmit, card, setIsFormValid, isVa
       isOpen={isOpen}
       onClose={onClose}
       onSubmit={handleSubmit}
-      isValid={isValid}
+      isValid={isFormValid}
     />
   );
 }

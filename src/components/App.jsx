@@ -6,12 +6,12 @@ import Footer from './Footer';
 import Header from './Header';
 import Main from './Main';
 import api from '../utils/api';
-import ImagePopup from './ImagePopup';
-import AddPlacePopup from './AddPlacePopup';
-import EditProfilePopup from './EditProfilePopup';
-import EditAvatarPopup from './EditAvatarPopup';
-import PopupWithSubmit from './PopupWithSubmit';
-import InfoTooltip from './InfoTooltip';
+import ImagePopup from './popups/ImagePopup';
+import AddPlacePopup from './popups/AddPlacePopup';
+import EditProfilePopup from './popups/EditProfilePopup';
+import EditAvatarPopup from './popups/EditAvatarPopup';
+import PopupWithSubmit from './popups/PopupWithSubmit';
+import InfoTooltip from './popups/InfoTooltip';
 import Login from './Login';
 import Register from './Register';
 import * as apiAuth from '../utils/apiAuth';
@@ -115,18 +115,18 @@ function App() {
     }
   }
 
-  //валидацию пока оставлю здесь, т.к. постараюсь ее доработать, после чего перенесу
-  const [isFormValid, setIsFormValid] = useState(false);
-  const [errors, setErrors] = useState({});
+  // //валидацию пока оставлю здесь, т.к. постараюсь ее доработать, после чего перенесу
+  // const [isFormValid, setIsFormValid] = useState(false);
+  // const [errors, setErrors] = useState({});
 
-  function checkFormValid(e) {
-    setIsFormValid(e.target.form.checkValidity());
-  }
-  //записываю имя инпута и сообщение об ошибке в объект, чтобы потом передать сообщение в <span>
-  function handleChangeErrorsValidation(e) {
-    setErrors({ ...errors, [e.target.name]: e.target.validationMessage });
-  }
-  //
+  // function checkFormValid(e) {
+  //   setIsFormValid(e.target.form.checkValidity());
+  // }
+  // //записываю имя инпута и сообщение об ошибке в объект, чтобы потом передать сообщение в <span>
+  // function handleChangeErrorsValidation(e) {
+  //   setErrors({ ...errors, [e.target.name]: e.target.validationMessage });
+  // }
+  // //
 
   useEffect(() => {
     Promise.all([api.getProfileData(), api.getInitialCards()])
@@ -164,7 +164,6 @@ function App() {
     setIsPopupWithSubmit(false);
     setIsInfoTooltipOpen(false);
     setSelectedCard(null);
-    setErrors({});
   }
 
   function handleUpdateUser(user) {
@@ -320,8 +319,6 @@ function App() {
           onClose={closeAllPopups}
           onSubmit={handleCardDelete}
           card={selectedCard}
-          isValid={isFormValid}
-          setIsFormValid={setIsFormValid}
           isLoading={isLoading}
         />
         <ImagePopup
