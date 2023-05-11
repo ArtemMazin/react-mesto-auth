@@ -32,7 +32,7 @@ function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar, isLoading }) {
       isValid={isFormValid}>
       <label>
         <input
-          className="popup__input popup__input_type_name"
+          className="popup__input"
           name="avatar"
           type="url"
           placeholder="Введите ссылку на изображение"

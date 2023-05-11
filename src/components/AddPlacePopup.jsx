@@ -44,7 +44,7 @@ function AddPlacePopup({ isOpen, onClose, onAddPlaceSubmit, isLoading }) {
       isValid={isFormValid}>
       <label>
         <input
-          className="popup__input popup__input_type_name"
+          className="popup__input"
           id="name-cards__input"
           type="text"
           name="cards_input_name"
@@ -65,7 +65,7 @@ function AddPlacePopup({ isOpen, onClose, onAddPlaceSubmit, isLoading }) {
           {errors.cards_input_name}
         </span>
         <input
-          className="popup__input popup__input_type_job"
+          className="popup__input"
           id="link-cards__input"
           type="url"
           name="cards_input_link"

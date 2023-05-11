@@ -46,7 +46,7 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser, isLoading }) {
       isValid={isFormValid}>
       <label>
         <input
-          className="popup__input popup__input_type_name "
+          className="popup__input"
           type="text"
           name="name"
           placeholder="Введите имя"
@@ -66,7 +66,7 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser, isLoading }) {
           {errors.name || ''}
         </span>
         <input
-          className="popup__input popup__input_type_job"
+          className="popup__input"
           type="text"
           name="job"
           placeholder="Введите профессию"
