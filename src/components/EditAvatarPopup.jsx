@@ -44,7 +44,7 @@ function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar, isLoading }) {
           }}
         />
         <span
-          className={`popup__input-error  ${!isFormValid ? 'popup__input-error_active' : ''}`}
+          className="popup__input-error"
           id="avatar-error">
           {errors.avatar || ''}
         </span>

@@ -61,7 +61,7 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser, isLoading }) {
           value={name || ''}
         />
         <span
-          className={`popup__input-error  ${!isFormValid ? 'popup__input-error_active' : ''}`}
+          className="popup__input-error"
           id="name-error">
           {errors.name || ''}
         </span>
@@ -81,7 +81,7 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser, isLoading }) {
           value={description || ''}
         />
         <span
-          className={`popup__input-error  ${!isFormValid ? 'popup__input-error_active' : ''}`}
+          className="popup__input-error"
           id="job-error">
           {errors.job || ''}
         </span>

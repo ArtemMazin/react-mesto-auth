@@ -24,9 +24,7 @@ function Login({ handleChange, handleSubmitLogin }) {
               handleChangeErrorsValidation(e);
             }}
           />
-          <span className={`auth__input-error  ${!isFormValid ? 'auth__input-error_active' : ''}`}>
-            {errors.email || ''}
-          </span>
+          <span className="auth__input-error">{errors.email || ''}</span>
           <input
             className="auth__input"
             type="password"
@@ -40,13 +38,12 @@ function Login({ handleChange, handleSubmitLogin }) {
               handleChangeErrorsValidation(e);
             }}
           />
-          <span className={`auth__input-error  ${!isFormValid ? 'auth__input-error_active' : ''}`}>
-            {errors.password || ''}
-          </span>
+          <span className="auth__input-error">{errors.password || ''}</span>
         </label>
         <button
           className={`auth__button-submit ${!isFormValid ? 'auth__button-submit_disabled' : ''}`}
-          type="submit">
+          type="submit"
+          disabled={!isFormValid}>
           Войти
         </button>
       </form>

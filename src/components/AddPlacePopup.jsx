@@ -60,7 +60,7 @@ function AddPlacePopup({ isOpen, onClose, onAddPlaceSubmit, isLoading }) {
           }}
         />
         <span
-          className={`popup__input-error  ${!isFormValid ? 'popup__input-error_active' : ''}`}
+          className="popup__input-error"
           id="cards_input_name-error">
           {errors.cards_input_name}
         </span>
@@ -79,7 +79,7 @@ function AddPlacePopup({ isOpen, onClose, onAddPlaceSubmit, isLoading }) {
           }}
         />
         <span
-          className={`popup__input-error  ${!isFormValid ? 'popup__input-error_active' : ''}`}
+          className="popup__input-error"
           id="cards_input_link-error">
           {errors.cards_input_link}
         </span>
