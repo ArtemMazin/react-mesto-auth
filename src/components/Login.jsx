@@ -1,50 +1,13 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import * as apiAuth from '../utils/apiAuth';
+import React from 'react';
 
-function Login({ handleLogin, setEmail }) {
-  const [formValue, setFormValue] = useState({
-    email: '',
-    password: '',
-  });
-
-  function handleChange(e) {
-    const { name, value } = e.target;
-
-    setFormValue({
-      ...formValue,
-      [name]: value,
-    });
-  }
-
-  const navigate = useNavigate();
-  function handleSubmit(e) {
-    e.preventDefault();
-    // if (!formValue.email || !formValue.password) {
-    //   return;
-    // }
-    const { email, password } = formValue;
-
-    apiAuth
-      .login(email, password)
-      .then((data) => {
-        if (data.token) {
-          setEmail(email);
-          setFormValue({ email: '', password: '' });
-          handleLogin();
-          navigate('/', { replace: true });
-        }
-      })
-      .catch((err) => console.log(err));
-  }
-
+function Login({ handleChange, handleSubmitLogin }) {
   return (
     <div className="auth wrapper">
       <h2 className="auth__title">Вход</h2>
       <form
         className="auth__form"
         noValidate
-        onSubmit={handleSubmit}>
+        onSubmit={handleSubmitLogin}>
         <label>
           <input
             className="auth__input popup__input_type_email"

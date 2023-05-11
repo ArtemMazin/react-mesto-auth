@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Route, Routes, Navigate, useNavigate } from 'react-router-dom';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
+import ProtectedRouteElement from './ProtectedRoute';
 import Footer from './Footer';
 import Header from './Header';
 import Main from './Main';
@@ -10,11 +11,10 @@ import AddPlacePopup from './AddPlacePopup';
 import EditProfilePopup from './EditProfilePopup';
 import EditAvatarPopup from './EditAvatarPopup';
 import PopupWithSubmit from './PopupWithSubmit';
+import InfoTooltip from './InfoTooltip';
 import Login from './Login';
 import Register from './Register';
-import ProtectedRouteElement from './ProtectedRoute';
 import * as apiAuth from '../utils/apiAuth';
-import InfoTooltip from './InfoTooltip';
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
@@ -30,11 +30,67 @@ function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [email, setEmail] = useState('');
   const [isRegistrationSuccess, setIsRegistrationSuccess] = useState(false);
-
+  const [formValue, setFormValue] = useState({
+    email: '',
+    password: '',
+  });
   const navigate = useNavigate();
 
+  function handleChange(e) {
+    const { name, value } = e.target;
+
+    setFormValue({
+      ...formValue,
+      [name]: value,
+    });
+  }
+
+  //регистрация
+  function showInfoTooltip() {
+    setIsInfoTooltipOpen(true);
+  }
+
+  function handleSubmitRegistration(e) {
+    e.preventDefault();
+
+    const { email, password } = formValue;
+    apiAuth
+      .register(email, password)
+      .then((res) => {
+        setIsRegistrationSuccess(true);
+        showInfoTooltip();
+        navigate('/sign-in', { replace: true });
+      })
+      .catch((err) => {
+        console.log(err);
+        setIsRegistrationSuccess(false);
+        showInfoTooltip();
+        navigate('/sign-up', { replace: true });
+      });
+  }
+
+  //логин
   function handleLogin() {
     setLoggedIn(true);
+  }
+  function handleSubmitLogin(e) {
+    e.preventDefault();
+    // if (!formValue.email || !formValue.password) {
+    //   return;
+    // }
+    const { email, password } = formValue;
+
+    apiAuth
+      .login(email, password)
+      .then((data) => {
+        if (data.token) {
+          setEmail(email);
+          setFormValue({ email: '', password: '' });
+          handleLogin();
+          navigate('/', { replace: true });
+        }
+      })
+      .catch((err) => console.log(err));
   }
 
   //токен
@@ -98,9 +154,6 @@ function App() {
   function handleCardClick(card) {
     setSelectedCard(card);
     setIsImagePopupOpen(true);
-  }
-  function showInfoTooltip() {
-    setIsInfoTooltipOpen(true);
   }
 
   function closeAllPopups() {
@@ -203,8 +256,8 @@ function App() {
             path="/sign-up"
             element={
               <Register
-                showInfoTooltip={showInfoTooltip}
-                setIsRegistrationSuccess={setIsRegistrationSuccess}
+                handleChange={handleChange}
+                handleSubmitRegistration={handleSubmitRegistration}
               />
             }
           />
@@ -212,8 +265,8 @@ function App() {
             path="/sign-in"
             element={
               <Login
-                handleLogin={handleLogin}
-                setEmail={setEmail}
+                handleChange={handleChange}
+                handleSubmitLogin={handleSubmitLogin}
               />
             }
           />

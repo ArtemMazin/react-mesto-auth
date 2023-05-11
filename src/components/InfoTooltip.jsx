@@ -11,7 +11,6 @@ function InfoTooltip({ isOpen, onClose, isLoading, isRegistrationSuccess }) {
   return (
     <div
       className={`popup popup_background_light ${isOpen ? 'popup_opened' : ''}`}
-      // className="popup popup_background_light popup_opened"
       onClick={(e) => {
         closePopupOverlay(e);
       }}>
