@@ -12,6 +12,7 @@ import EditProfilePopup from './popups/EditProfilePopup';
 import EditAvatarPopup from './popups/EditAvatarPopup';
 import PopupWithSubmit from './popups/PopupWithSubmit';
 import InfoTooltip from './popups/InfoTooltip';
+import InfoFailLoginPopup from './popups/InfoFailLoginPopup';
 import Login from './Login';
 import Register from './Register';
 import * as apiAuth from '../utils/apiAuth';
@@ -23,6 +24,7 @@ function App() {
   const [isImagePopupOpen, setIsImagePopupOpen] = useState(false);
   const [isPopupWithSubmit, setIsPopupWithSubmit] = useState(false);
   const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState(false);
+  const [isInfoFailLoginPopupOpen, setIsInfoFailLoginPopupOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState(null);
   const [currentUser, setCurrentUser] = useState({});
   const [cards, setCards] = useState([]);
@@ -66,18 +68,25 @@ function App() {
         setIsRegistrationSuccess(false);
         showInfoTooltip();
         navigate('/sign-up', { replace: true });
+      })
+      .finally(() => {
+        //сбрасываем email и password после регистрации для доп. защиты (если пользователь отключит валидацию кнопки submit)
+        setFormValue({
+          email: '',
+          password: '',
+        });
       });
   }
 
   //логин
+  function showInfoFailLoginPopup() {
+    setIsInfoFailLoginPopupOpen(true);
+  }
   function handleLogin() {
     setLoggedIn(true);
   }
   function handleSubmitLogin(e) {
     e.preventDefault();
-    // if (!formValue.email || !formValue.password) {
-    //   return;
-    // }
     const { email, password } = formValue;
 
     apiAuth
@@ -85,12 +94,21 @@ function App() {
       .then((data) => {
         if (data.token) {
           setEmail(email);
-          setFormValue({ email: '', password: '' });
           handleLogin();
           navigate('/', { replace: true });
         }
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err);
+        showInfoFailLoginPopup();
+      })
+      .finally(() => {
+        //сбрасываем email и password
+        setFormValue({
+          email: '',
+          password: '',
+        });
+      });
   }
 
   //токен
@@ -114,19 +132,6 @@ function App() {
         .catch((err) => console.log(err));
     }
   }
-
-  // //валидацию пока оставлю здесь, т.к. постараюсь ее доработать, после чего перенесу
-  // const [isFormValid, setIsFormValid] = useState(false);
-  // const [errors, setErrors] = useState({});
-
-  // function checkFormValid(e) {
-  //   setIsFormValid(e.target.form.checkValidity());
-  // }
-  // //записываю имя инпута и сообщение об ошибке в объект, чтобы потом передать сообщение в <span>
-  // function handleChangeErrorsValidation(e) {
-  //   setErrors({ ...errors, [e.target.name]: e.target.validationMessage });
-  // }
-  // //
 
   useEffect(() => {
     Promise.all([api.getProfileData(), api.getInitialCards()])
@@ -163,6 +168,7 @@ function App() {
     setIsImagePopupOpen(false);
     setIsPopupWithSubmit(false);
     setIsInfoTooltipOpen(false);
+    setIsInfoFailLoginPopupOpen(false);
     setSelectedCard(null);
   }
 
@@ -330,6 +336,10 @@ function App() {
           isOpen={isInfoTooltipOpen}
           onClose={closeAllPopups}
           isRegistrationSuccess={isRegistrationSuccess}
+        />
+        <InfoFailLoginPopup
+          isOpen={isInfoFailLoginPopupOpen}
+          onClose={closeAllPopups}
         />
       </div>
     </CurrentUserContext.Provider>
