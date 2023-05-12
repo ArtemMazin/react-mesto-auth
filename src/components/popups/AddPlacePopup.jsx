@@ -5,13 +5,23 @@ import { useValidation } from '../../hooks/useValidation';
 function AddPlacePopup({ isOpen, onClose, onAddPlaceSubmit, isLoading }) {
   const [name, setName] = useState('');
   const [link, setLink] = useState('');
-  const { isFormValid, errors, setErrors, checkFormValid, handleChangeErrorsValidation } = useValidation();
+  const {
+    isFormValid,
+    errors,
+    setErrors,
+    checkFormValid,
+    handleChangeErrorsValidation,
+    handleInputsValidation,
+    inputsValid,
+    setInputsValid,
+  } = useValidation();
 
   useEffect(() => {
+    //сбрасываем сообщения с ошибками при открытии попапа
     setErrors(false);
-  }, [isOpen]);
-
-  useEffect(() => {
+    //при открытии попапа инпуты валидны
+    setInputsValid({ name: true, link: true });
+    //очищаем инпуты при открытии попапа
     setName('');
     setLink('');
   }, [isOpen]);
@@ -44,10 +54,9 @@ function AddPlacePopup({ isOpen, onClose, onAddPlaceSubmit, isLoading }) {
       isValid={isFormValid}>
       <label>
         <input
-          className="popup__input"
-          id="name-cards__input"
+          className={`popup__input ${!inputsValid.name ? 'popup__input_type_error' : ''}`}
           type="text"
-          name="cards_input_name"
+          name="name"
           placeholder="Введите название"
           value={name}
           required
@@ -57,18 +66,14 @@ function AddPlacePopup({ isOpen, onClose, onAddPlaceSubmit, isLoading }) {
             handleChangeName(e);
             checkFormValid(e);
             handleChangeErrorsValidation(e);
+            handleInputsValidation(e);
           }}
         />
-        <span
-          className="popup__input-error"
-          id="cards_input_name-error">
-          {errors.cards_input_name}
-        </span>
+        <span className="popup__input-error">{errors.name || ''}</span>
         <input
-          className="popup__input"
-          id="link-cards__input"
+          className={`popup__input ${!inputsValid.link ? 'popup__input_type_error' : ''}`}
           type="url"
-          name="cards_input_link"
+          name="link"
           placeholder="Введите ссылку"
           value={link}
           required
@@ -76,13 +81,10 @@ function AddPlacePopup({ isOpen, onClose, onAddPlaceSubmit, isLoading }) {
             handleChangeLink(e);
             checkFormValid(e);
             handleChangeErrorsValidation(e);
+            handleInputsValidation(e);
           }}
         />
-        <span
-          className="popup__input-error"
-          id="cards_input_link-error">
-          {errors.cards_input_link}
-        </span>
+        <span className="popup__input-error">{errors.link || ''}</span>
       </label>
     </PopupWithForm>
   );

@@ -3,11 +3,25 @@ import PopupWithForm from './PopupWithForm';
 import { useValidation } from '../../hooks/useValidation';
 
 function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar, isLoading }) {
-  const { isFormValid, errors, setErrors, checkFormValid, handleChangeErrorsValidation } = useValidation();
+  const {
+    isFormValid,
+    errors,
+    setErrors,
+    checkFormValid,
+    handleChangeErrorsValidation,
+    inputsValid,
+    handleInputsValidation,
+    setInputsValid,
+  } = useValidation();
   const input = useRef();
 
   useEffect(() => {
+    //сбрасываем сообщения с ошибками при открытии попапа
     setErrors(false);
+    //очищаем инпут при открытии попапа
+    input.current.value = '';
+    //при открытии попапа инпут валиден
+    setInputsValid({ avatar: true });
   }, [isOpen]);
 
   function handleSubmit(e) {
@@ -17,9 +31,6 @@ function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar, isLoading }) {
       avatar: input.current.value,
     });
   }
-  useEffect(() => {
-    input.current.value = '';
-  }, [isOpen]);
 
   return (
     <PopupWithForm
@@ -32,7 +43,7 @@ function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar, isLoading }) {
       isValid={isFormValid}>
       <label>
         <input
-          className="popup__input"
+          className={`popup__input ${!inputsValid.avatar ? 'popup__input_type_error' : ''}`}
           name="avatar"
           type="url"
           placeholder="Введите ссылку на изображение"
@@ -41,6 +52,7 @@ function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar, isLoading }) {
           onChange={(e) => {
             checkFormValid(e);
             handleChangeErrorsValidation(e);
+            handleInputsValidation(e);
           }}
         />
         <span

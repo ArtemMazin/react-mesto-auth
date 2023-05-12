@@ -7,13 +7,26 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser, isLoading }) {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const currentUser = useContext(CurrentUserContext);
-  const { isFormValid, errors, setErrors, checkFormValid, handleChangeErrorsValidation } = useValidation();
+  const {
+    isFormValid,
+    errors,
+    setErrors,
+    checkFormValid,
+    handleChangeErrorsValidation,
+    inputsValid,
+    handleInputsValidation,
+    setInputsValid,
+  } = useValidation();
 
   useEffect(() => {
+    //сбрасываем сообщения с ошибками при открытии попапа
     setErrors({});
+    //при открытии попапа инпуты валидны
+    setInputsValid({ name: true, job: true });
   }, [isOpen]);
 
   useEffect(() => {
+    //в данном попапе инпуты заполнены при открытии
     setName(currentUser.name);
     setDescription(currentUser.about);
   }, [currentUser, isOpen]);
@@ -46,7 +59,7 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser, isLoading }) {
       isValid={isFormValid}>
       <label>
         <input
-          className="popup__input"
+          className={`popup__input ${!inputsValid.name ? 'popup__input_type_error' : ''}`}
           type="text"
           name="name"
           placeholder="Введите имя"
@@ -57,6 +70,7 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser, isLoading }) {
             handleChangeName(e);
             checkFormValid(e);
             handleChangeErrorsValidation(e);
+            handleInputsValidation(e);
           }}
           value={name || ''}
         />
@@ -66,7 +80,7 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser, isLoading }) {
           {errors.name || ''}
         </span>
         <input
-          className="popup__input"
+          className={`popup__input ${!inputsValid.job ? 'popup__input_type_error' : ''}`}
           type="text"
           name="job"
           placeholder="Введите профессию"
@@ -77,6 +91,7 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser, isLoading }) {
             handleChangeDescription(e);
             checkFormValid(e);
             handleChangeErrorsValidation(e);
+            handleInputsValidation(e);
           }}
           value={description || ''}
         />

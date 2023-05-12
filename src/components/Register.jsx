@@ -1,8 +1,22 @@
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useValidation } from '../hooks/useValidation';
 
 function Register({ handleChange, handleSubmitRegistration }) {
-  const { isFormValid, errors, checkFormValid, handleChangeErrorsValidation } = useValidation();
+  const {
+    isFormValid,
+    errors,
+    checkFormValid,
+    handleChangeErrorsValidation,
+    handleInputsValidation,
+    inputsValid,
+    setInputsValid,
+  } = useValidation();
+
+  useEffect(() => {
+    //при монтировании инпуты валидны
+    setInputsValid({ email: true, password: true });
+  }, []);
 
   return (
     <div className="auth wrapper">
@@ -13,7 +27,7 @@ function Register({ handleChange, handleSubmitRegistration }) {
         onSubmit={handleSubmitRegistration}>
         <label>
           <input
-            className="auth__input"
+            className={`auth__input ${!inputsValid.email ? 'popup__input_type_error' : ''}`}
             type="email"
             name="email"
             placeholder="Email"
@@ -22,11 +36,12 @@ function Register({ handleChange, handleSubmitRegistration }) {
               handleChange(e);
               checkFormValid(e);
               handleChangeErrorsValidation(e);
+              handleInputsValidation(e);
             }}
           />
           <span className="auth__input-error">{errors.email || ''}</span>
           <input
-            className="auth__input"
+            className={`auth__input ${!inputsValid.password ? 'popup__input_type_error' : ''}`}
             type="password"
             name="password"
             placeholder="Пароль"
@@ -36,6 +51,7 @@ function Register({ handleChange, handleSubmitRegistration }) {
               handleChange(e);
               checkFormValid(e);
               handleChangeErrorsValidation(e);
+              handleInputsValidation(e);
             }}
           />
           <span className="auth__input-error">{errors.password || ''}</span>
