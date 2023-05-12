@@ -66,3 +66,41 @@
 @import url(./blocks/popup/__info-icon/_type/popup__info-icon_type_success.css);
 @import url(./blocks/popup/__info-icon/_type/popup__info-icon_type_fail.css);
 @import url(./blocks/popup/__title/_info/popup__title_info.css);
+
+.header__container {
+  display: flex;
+  justify-content: space-between;
+  min-height: 74px;
+  position: relative;
+}
+.hamb {
+  display: block;
+  width: 24px;
+  height: 18px;
+  z-index: 5;
+  position: relative;
+}
+
+.bar,
+.hamb::before,
+.hamb::after {
+  left: 0;
+  position: absolute;
+  width: 100%;
+  height: 3px;
+  background-color: #fff;
+}
+.hamb::before,
+.hamb::after {
+  content: '';
+}
+.hamb::before {
+  top: 0;
+}
+.hamb::after {
+  bottom: 0;
+}
+.bar {
+  top: 50%;
+  transform: scale(1) translate(0px, -50%);
+}
