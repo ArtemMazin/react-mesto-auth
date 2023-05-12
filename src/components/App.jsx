@@ -38,7 +38,7 @@ function App() {
   });
   const navigate = useNavigate();
 
-  function handleChange(e) {
+  function handleChangeInput(e) {
     const { name, value } = e.target;
 
     setFormValue({
@@ -261,7 +261,7 @@ function App() {
             path="/sign-up"
             element={
               <Register
-                handleChange={handleChange}
+                handleChange={handleChangeInput}
                 handleSubmitRegistration={handleSubmitRegistration}
               />
             }
@@ -270,7 +270,7 @@ function App() {
             path="/sign-in"
             element={
               <Login
-                handleChange={handleChange}
+                handleChange={handleChangeInput}
                 handleSubmitLogin={handleSubmitLogin}
               />
             }

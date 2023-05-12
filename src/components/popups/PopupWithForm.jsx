@@ -1,31 +1,14 @@
-import { useEffect } from 'react';
+import React from 'react';
+import { useClosePopupByOverlayAndEsc } from '../../hooks/useClosePopupByOverlayAndEsc';
 
 function PopupWithForm({ isOpen, name, title, onSubmit, children, isValid, buttonName, onClose }) {
-  //закрытие попапа по esc
-  useEffect(() => {
-    if (!isOpen) return;
-    function closeByEscape(e) {
-      if (e.key === 'Escape') {
-        onClose();
-      }
-    }
-    document.addEventListener('keydown', closeByEscape);
-    return () => document.removeEventListener('keydown', closeByEscape);
-  }, [isOpen, onClose]);
-
-  //закрытие попапа по оверлею
-  function closePopupOverlay(e) {
-    //currentTarget - оверлей
-    if (e.target === e.currentTarget) {
-      onClose();
-    }
-  }
+  const { closePopupByOverlay } = useClosePopupByOverlayAndEsc(isOpen, onClose);
 
   return (
     <div
       className={`popup popup_background_light ${isOpen ? 'popup_opened' : ''}`}
       id={`popup-${name}`}
-      onClick={closePopupOverlay}>
+      onClick={closePopupByOverlay}>
       <div className="popup__container">
         <h2 className="popup__title">{title}</h2>
         <form

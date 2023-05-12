@@ -1,17 +1,14 @@
 import React from 'react';
+import { useClosePopupByOverlayAndEsc } from '../../hooks/useClosePopupByOverlayAndEsc';
 
 function InfoFailLoginPopup({ isOpen, onClose }) {
-  function closePopupOverlay(e) {
-    //currentTarget - оверлей
-    if (e.target === e.currentTarget) {
-      onClose();
-    }
-  }
+  const { closePopupByOverlay } = useClosePopupByOverlayAndEsc(isOpen, onClose);
+
   return (
     <div
       className={`popup popup_background_light ${isOpen ? 'popup_opened' : ''}`}
       onClick={(e) => {
-        closePopupOverlay(e);
+        closePopupByOverlay(e);
       }}>
       <div className="popup__container popup__container_info">
         <div className="popup__info-icon popup__info-icon_type_fail"></div>
