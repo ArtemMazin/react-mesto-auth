@@ -36,14 +36,21 @@ function Header({ loggedIn, setLoggedIn, email }) {
           alt="Логотип проекта: Место"
           className="header__logo"
         />
+        {/* если пользователь залогинен, то увидит email и кнопку выход, а на мобильных устройствах бургер-меню. если не
+        залогинен, то увидит ссылки на вход/регистрацию */}
         {loggedIn ? (
           <>
-            <div
-              className="header__menu-hamburger"
-              onClick={toggleHideMenu}>
-              <span className="header__menu-bar"></span>
-            </div>
-
+            {!isMenuOpen ? (
+              <button
+                className="header__menu-hamburger"
+                onClick={toggleHideMenu}>
+                <span className="header__menu-bar"></span>
+              </button>
+            ) : (
+              <button
+                className="header__close-menu-btn"
+                onClick={toggleHideMenu}></button>
+            )}
             <div className="header__profile header__profile_mobile">
               <p className="header__email">{email}</p>
               <button

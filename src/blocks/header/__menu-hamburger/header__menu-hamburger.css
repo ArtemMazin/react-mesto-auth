@@ -4,6 +4,9 @@
   height: 18px;
   z-index: 5;
   position: relative;
+  background-color: #000;
+  border: none;
+  cursor: pointer;
 }
 .header__menu-bar,
 .header__menu-hamburger::before,
@@ -27,6 +30,9 @@
 .header__menu-bar {
   top: 50%;
   transform: scale(1) translate(0px, -50%);
+}
+.header__menu-hamburger:hover {
+  opacity: 0.6;
 }
 @media (max-width: 540px) {
   .header__menu-hamburger {
