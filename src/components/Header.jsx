@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import useWindowWidth from '../hooks/useWindowWidth';
 import logo from '../images/logo.svg';
@@ -7,6 +7,11 @@ function Header({ loggedIn, setLoggedIn, email }) {
   const location = useLocation();
   const navigate = useNavigate();
   const { isMobile } = useWindowWidth();
+  const [isMenu, setIsMenu] = useState(false);
+
+  function toggleMenu(params) {
+    setIsMenu(!isMenu);
+  }
 
   function signOut() {
     localStorage.removeItem('token');
@@ -16,19 +21,16 @@ function Header({ loggedIn, setLoggedIn, email }) {
 
   return (
     <div className="header wrapper">
-      {isMobile ? (
-        <div className="header__profile">
-          <p className="header__email">{email}</p>
-          <button
-            type="button"
-            className="header__button"
-            onClick={signOut}>
-            Выйти
-          </button>
-        </div>
-      ) : (
-        <></>
-      )}
+      <div className={`header__profile ${!isMenu ? 'transform' : ''}`}>
+        <p className="header__email">{email}</p>
+        <button
+          type="button"
+          className="header__button"
+          onClick={signOut}>
+          Выйти
+        </button>
+      </div>
+
       <header className="header__container">
         <img
           src={logo}
@@ -36,21 +38,20 @@ function Header({ loggedIn, setLoggedIn, email }) {
           className="header__logo"
         />
         {loggedIn ? (
-          isMobile ? (
-            <div className="hamb">
+          <div className="header__profile ">
+            <div
+              className="hamb"
+              onClick={toggleMenu}>
               <span className="bar"></span>
             </div>
-          ) : (
-            <div className="header__profile">
-              <p className="header__email">{email}</p>
-              <button
-                type="button"
-                className="header__button"
-                onClick={signOut}>
-                Выйти
-              </button>
-            </div>
-          )
+            <p className="header__email header__profile_hide">{email}</p>
+            <button
+              type="button"
+              className="header__button header__profile_hide"
+              onClick={signOut}>
+              Выйти
+            </button>
+          </div>
         ) : (
           <Link
             //location.pathname показывает текущее местоположение

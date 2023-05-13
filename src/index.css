@@ -74,7 +74,7 @@
   position: relative;
 }
 .hamb {
-  display: block;
+  display: none;
   width: 24px;
   height: 18px;
   z-index: 5;
@@ -103,4 +103,18 @@
 .bar {
   top: 50%;
   transform: scale(1) translate(0px, -50%);
+}
+@media (max-width: 540px) {
+  .hamb {
+    display: block;
+  }
+}
+@media (max-width: 540px) {
+  .header__profile_hide {
+    display: none;
+  }
+}
+.transform {
+  display: none;
+  transition: 1s;
 }
