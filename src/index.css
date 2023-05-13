@@ -19,6 +19,7 @@
 @import url(./blocks/header/__email/header__email.css);
 @import url(./blocks/header/__button/header__button.css);
 @import url(./blocks/header/__link/header__link.css);
+@import url(./blocks/header/__content/header__content.css);
 
 @import url(./blocks/profile/profile.css);
 @import url(./blocks/profile/__add-button/profile__add-button.css);
@@ -66,3 +67,69 @@
 @import url(./blocks/popup/__info-icon/_type/popup__info-icon_type_success.css);
 @import url(./blocks/popup/__info-icon/_type/popup__info-icon_type_fail.css);
 @import url(./blocks/popup/__title/_info/popup__title_info.css);
+
+.header__container {
+  display: flex;
+  justify-content: space-between;
+  min-height: 74px;
+  position: relative;
+}
+.header__menu-hamburger {
+  display: none;
+  width: 24px;
+  height: 18px;
+  z-index: 5;
+  position: relative;
+}
+
+.header__menu-bar,
+.header__menu-hamburger::before,
+.header__menu-hamburger::after {
+  left: 0;
+  position: absolute;
+  width: 100%;
+  height: 3px;
+  background-color: #fff;
+}
+.header__menu-hamburger::before,
+.header__menu-hamburger::after {
+  content: '';
+}
+.header__menu-hamburger::before {
+  top: 0;
+}
+.header__menu-hamburger::after {
+  bottom: 0;
+}
+.header__menu-bar {
+  top: 50%;
+  transform: scale(1) translate(0px, -50%);
+}
+@media (max-width: 540px) {
+  .header__menu-hamburger {
+    display: block;
+  }
+}
+
+.transform {
+  display: none;
+  transition: 1s;
+}
+.header__profile-hide {
+  margin: -142px 0 0 0;
+  padding: 40px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  text-align: center;
+  transition: 1s;
+  border-bottom: 1px solid rgba(84, 84, 84, 0.7);
+}
+.header__profile-hide_active {
+  margin: 0;
+}
+@media (max-width: 540px) {
+  .header__profile_mobile {
+    display: none;
+  }
+}
