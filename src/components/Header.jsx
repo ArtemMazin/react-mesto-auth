@@ -1,20 +1,20 @@
 import { useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import logo from '../images/logo.svg';
+import HideMenu from './HideMenu';
 
 function Header({ loggedIn, setLoggedIn, email }) {
   const location = useLocation();
   const navigate = useNavigate();
-
-  const [isMenu, setIsMenu] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   useEffect(() => {
     //при входе/выходе меню должно быть изначально скрыто
-    setIsMenu(false);
+    setIsMenuOpen(false);
   }, [loggedIn]);
 
-  function toggleMenu(params) {
-    setIsMenu(!isMenu);
+  function toggleHideMenu() {
+    setIsMenuOpen(!isMenuOpen);
   }
 
   function signOut() {
@@ -25,15 +25,11 @@ function Header({ loggedIn, setLoggedIn, email }) {
 
   return (
     <header className="header">
-      <div className={`header__profile-hide  ${isMenu ? 'header__profile-hide_active' : ''}`}>
-        <p className="header__email">{email || ''}</p>
-        <button
-          type="button"
-          className="header__button"
-          onClick={signOut}>
-          Выйти
-        </button>
-      </div>
+      <HideMenu
+        isMenuOpen={isMenuOpen}
+        email={email}
+        signOut={signOut}
+      />
       <div className="header__content">
         <img
           src={logo}
@@ -44,7 +40,7 @@ function Header({ loggedIn, setLoggedIn, email }) {
           <>
             <div
               className="header__menu-hamburger"
-              onClick={toggleMenu}>
+              onClick={toggleHideMenu}>
               <span className="header__menu-bar"></span>
             </div>
 
