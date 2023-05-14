@@ -265,6 +265,7 @@ function App() {
               <Register
                 handleChange={handleChangeInput}
                 handleSubmitRegistration={handleSubmitRegistration}
+                formValue={formValue}
               />
             }
           />
@@ -274,6 +275,7 @@ function App() {
               <Login
                 handleChange={handleChangeInput}
                 handleSubmitLogin={handleSubmitLogin}
+                formValue={formValue}
               />
             }
           />

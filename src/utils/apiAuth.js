@@ -11,7 +11,7 @@ export function register(email, password, setErrorMessageRegister) {
     if (!res.ok) {
       //получаем ответ от сервера с текстом ошибки, чтобы передать его в попап
       res.text().then((text) => {
-        setErrorMessageRegister(JSON.parse(text).message);
+        setErrorMessageRegister(JSON.parse(text).message || JSON.parse(text).error);
       });
       return Promise.reject(`Ошибка: ${res.status}`);
     }

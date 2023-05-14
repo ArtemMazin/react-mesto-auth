@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useValidation } from '../hooks/useValidation';
 
-function Login({ handleChange, handleSubmitLogin }) {
+function Login({ handleChange, handleSubmitLogin, formValue }) {
   const {
     isFormValid,
     errors,
@@ -16,6 +16,7 @@ function Login({ handleChange, handleSubmitLogin }) {
     //при монтировании инпуты валидны
     setInputsValid({ email: true, password: true });
   }, []);
+  const { email, password } = formValue;
 
   return (
     <div className="auth wrapper">
@@ -29,6 +30,7 @@ function Login({ handleChange, handleSubmitLogin }) {
             className={`auth__input ${!inputsValid.email ? 'popup__input_type_error' : ''}`}
             type="email"
             name="email"
+            value={email}
             placeholder="Email"
             required
             onChange={(e) => {
@@ -43,6 +45,7 @@ function Login({ handleChange, handleSubmitLogin }) {
             className={`auth__input ${!inputsValid.password ? 'popup__input_type_error' : ''}`}
             type="password"
             name="password"
+            value={password}
             placeholder="Пароль"
             required
             minLength="6"

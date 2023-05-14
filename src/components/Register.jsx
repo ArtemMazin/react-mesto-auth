@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useValidation } from '../hooks/useValidation';
 
-function Register({ handleChange, handleSubmitRegistration }) {
+function Register({ handleChange, handleSubmitRegistration, formValue }) {
   const {
     isFormValid,
     errors,
@@ -17,6 +17,7 @@ function Register({ handleChange, handleSubmitRegistration }) {
     //при монтировании инпуты валидны
     setInputsValid({ email: true, password: true });
   }, []);
+  const { email, password } = formValue;
 
   return (
     <div className="auth wrapper">
@@ -30,6 +31,7 @@ function Register({ handleChange, handleSubmitRegistration }) {
             className={`auth__input ${!inputsValid.email ? 'popup__input_type_error' : ''}`}
             type="email"
             name="email"
+            value={email}
             placeholder="Email"
             required
             onChange={(e) => {
@@ -44,6 +46,7 @@ function Register({ handleChange, handleSubmitRegistration }) {
             className={`auth__input ${!inputsValid.password ? 'popup__input_type_error' : ''}`}
             type="password"
             name="password"
+            value={password}
             placeholder="Пароль"
             required
             minLength="6"
