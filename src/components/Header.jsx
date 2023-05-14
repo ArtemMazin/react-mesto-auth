@@ -25,11 +25,13 @@ function Header({ loggedIn, setLoggedIn, email }) {
 
   return (
     <header className="header">
+      {/* {mob && ( */}
       <HideMenu
         isMenuOpen={isMenuOpen}
         email={email}
         signOut={signOut}
       />
+      {/* )} */}
       <div className="header__content">
         <img
           src={logo}

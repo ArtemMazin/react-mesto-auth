@@ -24,6 +24,7 @@
 @import url(./blocks/header/__hide-menu/header__hide-menu.css);
 @import url(./blocks/header/__hide-menu/_active/header__hide-menu_active.css);
 @import url(./blocks/header/__profile/_mobile/header__profile_mobile.css);
+@import url(./blocks/header/__close-menu-btn/header__close-menu-btn.css);
 
 @import url(./blocks/profile/profile.css);
 @import url(./blocks/profile/__add-button/profile__add-button.css);
@@ -71,32 +72,3 @@
 @import url(./blocks/popup/__info-icon/_type/popup__info-icon_type_success.css);
 @import url(./blocks/popup/__info-icon/_type/popup__info-icon_type_fail.css);
 @import url(./blocks/popup/__title/_info/popup__title_info.css);
-
-.header__close-menu-btn {
-  position: relative;
-  width: 20px;
-  height: 20px;
-  cursor: pointer;
-  z-index: 5;
-  background-color: #000;
-  border: none;
-}
-.header__close-menu-btn:before,
-.header__close-menu-btn:after {
-  position: absolute;
-  left: 9px;
-  top: 0;
-  content: ' ';
-  height: 20px;
-  width: 3px;
-  background-color: #fff;
-}
-.header__close-menu-btn:before {
-  transform: rotate(45deg);
-}
-.header__close-menu-btn:after {
-  transform: rotate(-45deg);
-}
-.header__close-menu-btn:hover {
-  opacity: 0.6;
-}
