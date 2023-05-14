@@ -1,7 +1,7 @@
 import React from 'react';
 import { useClosePopupByOverlayAndEsc } from '../../hooks/useClosePopupByOverlayAndEsc';
 
-function InfoFailLoginPopup({ isOpen, onClose }) {
+function InfoFailLoginPopup({ isOpen, onClose, errorMessage }) {
   const { closePopupByOverlay } = useClosePopupByOverlayAndEsc(isOpen, onClose);
 
   return (
@@ -12,7 +12,7 @@ function InfoFailLoginPopup({ isOpen, onClose }) {
       }}>
       <div className="popup__container popup__container_info">
         <div className="popup__info-icon popup__info-icon_type_fail"></div>
-        <h2 className="popup__title popup__title_info">Не удалось войти. Проверьте email и пароль</h2>
+        <h2 className="popup__title popup__title_info">{errorMessage || 'Что-то пошло не так! Попробуйте ещё раз.'}</h2>
         <button
           className="popup__close-btn"
           type="button"

@@ -32,6 +32,8 @@ function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [email, setEmail] = useState('');
   const [isRegistrationSuccess, setIsRegistrationSuccess] = useState(false);
+  const [errorMessageLogin, setErrorMessageLogin] = useState('');
+  const [errorMessageRegister, setErrorMessageRegister] = useState('');
   const [formValue, setFormValue] = useState({
     email: '',
     password: '',
@@ -57,7 +59,7 @@ function App() {
 
     const { email, password } = formValue;
     apiAuth
-      .register(email, password)
+      .register(email, password, setErrorMessageRegister)
       .then((res) => {
         setIsRegistrationSuccess(true);
         showInfoTooltip();
@@ -90,7 +92,7 @@ function App() {
     const { email, password } = formValue;
 
     apiAuth
-      .login(email, password)
+      .login(email, password, setErrorMessageLogin)
       .then((data) => {
         if (data.token) {
           setEmail(email);
@@ -336,10 +338,12 @@ function App() {
           isOpen={isInfoTooltipOpen}
           onClose={closeAllPopups}
           isRegistrationSuccess={isRegistrationSuccess}
+          errorMessage={errorMessageRegister}
         />
         <InfoFailLoginPopup
           isOpen={isInfoFailLoginPopupOpen}
           onClose={closeAllPopups}
+          errorMessage={errorMessageLogin}
         />
       </div>
     </CurrentUserContext.Provider>
