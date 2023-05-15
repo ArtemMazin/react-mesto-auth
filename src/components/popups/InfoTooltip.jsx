@@ -1,7 +1,7 @@
 import React from 'react';
 import { useClosePopupByOverlayAndEsc } from '../../hooks/useClosePopupByOverlayAndEsc';
 
-function InfoTooltip({ isOpen, onClose, isLoading, isRegistrationSuccess, errorMessage }) {
+function InfoTooltip({ isOpen, onClose, isRegistrationSuccess, errorMessage }) {
   const { closePopupByOverlay } = useClosePopupByOverlayAndEsc(isOpen, onClose);
 
   return (

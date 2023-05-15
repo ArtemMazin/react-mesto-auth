@@ -56,8 +56,9 @@ function App() {
 
   function handleSubmitRegistration(e) {
     e.preventDefault();
-
+    setIsLoading(true);
     const { email, password } = formValue;
+
     apiAuth
       .register(email, password, setErrorMessageRegister)
       .then((res) => {
@@ -77,6 +78,7 @@ function App() {
           email: '',
           password: '',
         });
+        setIsLoading(false);
       });
   }
 
@@ -89,6 +91,7 @@ function App() {
   }
   function handleSubmitLogin(e) {
     e.preventDefault();
+    setIsLoading(true);
     const { email, password } = formValue;
 
     apiAuth
@@ -110,6 +113,7 @@ function App() {
           email: '',
           password: '',
         });
+        setIsLoading(false);
       });
   }
 
@@ -266,6 +270,7 @@ function App() {
                 handleChange={handleChangeInput}
                 handleSubmitRegistration={handleSubmitRegistration}
                 formValue={formValue}
+                isLoading={isLoading}
               />
             }
           />
@@ -276,6 +281,7 @@ function App() {
                 handleChange={handleChangeInput}
                 handleSubmitLogin={handleSubmitLogin}
                 formValue={formValue}
+                isLoading={isLoading}
               />
             }
           />

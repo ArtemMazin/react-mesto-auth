@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useValidation } from '../hooks/useValidation';
 
-function Login({ handleChange, handleSubmitLogin, formValue }) {
+function Login({ handleChange, handleSubmitLogin, formValue, isLoading }) {
   const {
     isFormValid,
     errors,
@@ -62,7 +62,7 @@ function Login({ handleChange, handleSubmitLogin, formValue }) {
           className={`auth__button-submit ${!isFormValid ? 'auth__button-submit_disabled' : ''}`}
           type="submit"
           disabled={!isFormValid}>
-          Войти
+          {!isLoading ? 'Войти' : 'Загрузка...'}
         </button>
       </form>
     </div>

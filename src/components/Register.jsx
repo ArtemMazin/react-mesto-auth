@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useValidation } from '../hooks/useValidation';
 
-function Register({ handleChange, handleSubmitRegistration, formValue }) {
+function Register({ handleChange, handleSubmitRegistration, formValue, isLoading }) {
   const {
     isFormValid,
     errors,
@@ -63,7 +63,7 @@ function Register({ handleChange, handleSubmitRegistration, formValue }) {
           className={`auth__button-submit ${!isFormValid ? 'auth__button-submit_disabled' : ''}`}
           type="submit"
           disabled={!isFormValid}>
-          Зарегистрироваться
+          {!isLoading ? 'Зарегистрироваться' : 'Загрузка...'}
         </button>
         <Link
           to={'/sign-in'}
