@@ -6,6 +6,6 @@
 
 ---
 
-### [Посмотреть проект](https://artemmazin.github.io/mesto-react/)
+### [Посмотреть проект](https://artemmazin.github.io/react-mesto-auth/)
 
 В данном проекте используется библиотека React
