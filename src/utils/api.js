@@ -1,8 +1,7 @@
 class Api {
   constructor({ baseUrl, headers }) {
-    this.baseUrl = baseUrl;
-    this.headers = headers;
-    this.authorization = headers.authorization;
+    this._baseUrl = baseUrl;
+    this._headers = headers;
   }
 
   _getResponseData(res) {
@@ -11,89 +10,64 @@ class Api {
     }
     return res.json();
   }
+
+  async _request(url, options) {
+    const res = await fetch(`${this._baseUrl}${url}`, { headers: this._headers, ...options });
+    return this._getResponseData(res);
+  }
+
   getInitialCards() {
-    return fetch(`${this.baseUrl}cards`, {
-      headers: {
-        authorization: this.authorization,
-      },
-    }).then((res) => this._getResponseData(res));
+    return this._request('cards');
   }
   getProfileData() {
-    return fetch(`${this.baseUrl}users/me`, {
-      headers: {
-        authorization: this.authorization,
-      },
-    }).then((res) => this._getResponseData(res));
+    return this._request('users/me');
   }
   changeProfileData(data) {
-    return fetch(`${this.baseUrl}users/me`, {
+    return this._request('users/me', {
       method: 'PATCH',
-      headers: {
-        authorization: this.authorization,
-        'Content-Type': 'application/json',
-      },
       body: JSON.stringify({
         name: data.name,
         about: data.job,
       }),
-    }).then((res) => this._getResponseData(res));
+    });
   }
   addNewCard(data) {
-    return fetch(`${this.baseUrl}cards`, {
+    return this._request('cards', {
       method: 'POST',
-      headers: {
-        authorization: this.authorization,
-        'Content-Type': 'application/json',
-      },
       body: JSON.stringify({
         name: data.name,
         link: data.link,
       }),
-    }).then((res) => this._getResponseData(res));
+    });
   }
   changeAvatar(data) {
-    return fetch(`${this.baseUrl}users/me/avatar`, {
+    return this._request('users/me/avatar', {
       method: 'PATCH',
-      headers: {
-        authorization: this.authorization,
-        'Content-Type': 'application/json',
-      },
       body: JSON.stringify({
         avatar: data.avatar,
       }),
-    }).then((res) => this._getResponseData(res));
+    });
   }
   deleteCard(cardID) {
-    return fetch(`${this.baseUrl}cards/${cardID}`, {
+    return this._request(`cards/${cardID}`, {
       method: 'DELETE',
-      headers: {
-        authorization: this.authorization,
-        'Content-Type': 'application/json',
-      },
-    }).then((res) => this._getResponseData(res));
+    });
   }
   changeLikeCardStatus(cardID, isLiked) {
     return isLiked
-      ? fetch(`${this.baseUrl}cards/${cardID}/likes`, {
+      ? this._request(`cards/${cardID}/likes`, {
           method: 'PUT',
-          headers: {
-            authorization: this.authorization,
-            'Content-Type': 'application/json',
-          },
-        }).then((res) => this._getResponseData(res))
-      : fetch(`${this.baseUrl}cards/${cardID}/likes`, {
+        })
+      : this._request(`cards/${cardID}/likes`, {
           method: 'DELETE',
-          headers: {
-            authorization: this.authorization,
-            'Content-Type': 'application/json',
-          },
-        }).then((res) => this._getResponseData(res));
+        });
   }
 }
 const api = new Api({
   baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-62/',
   headers: {
     authorization: 'ad0e399e-98fe-4937-8e46-ff5ac7a149ca',
+    'Content-Type': 'application/json',
   },
 });
 export default api;
