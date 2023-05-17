@@ -11,41 +11,50 @@ function getResponseData(res, setErrorMessage) {
   return res.json();
 }
 
+async function request(url, options, setErrorMessage) {
+  const res = await fetch(`${BASE_URL}${url}`, options);
+  return getResponseData(res, setErrorMessage);
+}
+
 export function register(email, password, setErrorMessageRegister) {
-  return fetch(`${BASE_URL}/signup`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
+  return request(
+    '/signup',
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ email, password }),
     },
-    body: JSON.stringify({ email, password }),
-  }).then((res) => getResponseData(res, setErrorMessageRegister));
+    setErrorMessageRegister
+  );
 }
 
 export function login(email, password, setErrorMessageLogin) {
-  return fetch(`${BASE_URL}/signin`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
+  return request(
+    '/signin',
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ email, password }),
     },
-    body: JSON.stringify({ email, password }),
-  })
-    .then((res) => getResponseData(res, setErrorMessageLogin))
-    .then((data) => {
-      if (data.token) {
-        localStorage.setItem('token', data.token);
-        return data;
-      }
-    });
+    setErrorMessageLogin
+  ).then((data) => {
+    if (data.token) {
+      localStorage.setItem('token', data.token);
+      return data;
+    }
+  });
 }
 
 export function getContent(token) {
-  return fetch(`${BASE_URL}/users/me`, {
+  return request('/users/me', {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`,
     },
-  })
-    .then((res) => getResponseData(res))
-    .then((data) => data);
+  });
 }
