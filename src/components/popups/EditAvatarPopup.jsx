@@ -3,21 +3,11 @@ import PopupWithForm from './PopupWithForm';
 import { useValidation } from '../../hooks/useValidation';
 
 function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar, isLoading }) {
-  const {
-    isFormValid,
-    errors,
-    setErrors,
-    checkFormValid,
-    handleChangeErrorsValidation,
-    inputsValid,
-    handleInputsValidation,
-    setInputsValid,
-  } = useValidation();
+  const { isFormValid, errors, handleChangeValidation, inputsValid, setInputsValid, resetForm } = useValidation();
   const input = useRef();
 
   useEffect(() => {
-    //сбрасываем сообщения с ошибками при открытии попапа
-    setErrors(false);
+    resetForm();
     //очищаем инпут при открытии попапа
     input.current.value = '';
     //при открытии попапа инпут валиден
@@ -49,11 +39,7 @@ function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar, isLoading }) {
           placeholder="Введите ссылку на изображение"
           required
           ref={input}
-          onChange={(e) => {
-            checkFormValid(e);
-            handleChangeErrorsValidation(e);
-            handleInputsValidation(e);
-          }}
+          onChange={handleChangeValidation}
         />
         <span
           className="popup__input-error"

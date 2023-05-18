@@ -1,46 +1,21 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import PopupWithForm from './PopupWithForm';
 import { useValidation } from '../../hooks/useValidation';
 
 function AddPlacePopup({ isOpen, onClose, onAddPlaceSubmit, isLoading }) {
-  const [name, setName] = useState('');
-  const [link, setLink] = useState('');
-  const {
-    isFormValid,
-    errors,
-    setErrors,
-    checkFormValid,
-    handleChangeErrorsValidation,
-    handleInputsValidation,
-    inputsValid,
-    setInputsValid,
-  } = useValidation();
+  const { isFormValid, errors, handleChangeValidation, inputsValid, setInputsValid, resetForm, values } =
+    useValidation();
 
   useEffect(() => {
-    //сбрасываем сообщения с ошибками при открытии попапа
-    setErrors(false);
     //при открытии попапа инпуты валидны
     setInputsValid({ name: true, link: true });
-    //очищаем инпуты при открытии попапа
-    setName('');
-    setLink('');
+    resetForm();
   }, [isOpen]);
-
-  function handleChangeName(e) {
-    setName(e.target.value);
-  }
-
-  function handleChangeLink(e) {
-    setLink(e.target.value);
-  }
 
   function handleSubmit(e) {
     e.preventDefault();
 
-    onAddPlaceSubmit({
-      name,
-      link,
-    });
+    onAddPlaceSubmit(values);
   }
 
   return (
@@ -58,16 +33,11 @@ function AddPlacePopup({ isOpen, onClose, onAddPlaceSubmit, isLoading }) {
           type="text"
           name="name"
           placeholder="Введите название"
-          value={name}
+          value={values.name || ''}
           required
           minLength="2"
           maxLength="30"
-          onChange={(e) => {
-            handleChangeName(e);
-            checkFormValid(e);
-            handleChangeErrorsValidation(e);
-            handleInputsValidation(e);
-          }}
+          onChange={handleChangeValidation}
         />
         <span className="popup__input-error">{errors.name || ''}</span>
         <input
@@ -75,14 +45,9 @@ function AddPlacePopup({ isOpen, onClose, onAddPlaceSubmit, isLoading }) {
           type="url"
           name="link"
           placeholder="Введите ссылку"
-          value={link}
+          value={values.link || ''}
           required
-          onChange={(e) => {
-            handleChangeLink(e);
-            checkFormValid(e);
-            handleChangeErrorsValidation(e);
-            handleInputsValidation(e);
-          }}
+          onChange={handleChangeValidation}
         />
         <span className="popup__input-error">{errors.link || ''}</span>
       </label>

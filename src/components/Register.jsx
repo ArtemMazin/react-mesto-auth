@@ -3,21 +3,14 @@ import { Link } from 'react-router-dom';
 import { useValidation } from '../hooks/useValidation';
 
 function Register({ handleChange, handleSubmitRegistration, formValue, isLoading }) {
-  const {
-    isFormValid,
-    errors,
-    checkFormValid,
-    handleChangeErrorsValidation,
-    handleInputsValidation,
-    inputsValid,
-    setInputsValid,
-  } = useValidation();
+  const { isFormValid, errors, handleChangeValidation, inputsValid, setInputsValid, resetForm, values, setValues } =
+    useValidation();
+  const { email, password } = values;
 
   useEffect(() => {
     //при монтировании инпуты валидны
     setInputsValid({ email: true, password: true });
   }, []);
-  const { email, password } = formValue;
 
   return (
     <div className="auth wrapper">
@@ -25,37 +18,27 @@ function Register({ handleChange, handleSubmitRegistration, formValue, isLoading
       <form
         className="auth__form"
         noValidate
-        onSubmit={handleSubmitRegistration}>
+        onSubmit={(e) => handleSubmitRegistration(e, email, password)}>
         <label>
           <input
             className={`auth__input ${!inputsValid.email ? 'popup__input_type_error' : ''}`}
             type="email"
             name="email"
-            value={email}
+            value={email || ''}
             placeholder="Email"
             required
-            onChange={(e) => {
-              handleChange(e);
-              checkFormValid(e);
-              handleChangeErrorsValidation(e);
-              handleInputsValidation(e);
-            }}
+            onChange={handleChangeValidation}
           />
           <span className="auth__input-error">{errors.email || ''}</span>
           <input
             className={`auth__input ${!inputsValid.password ? 'popup__input_type_error' : ''}`}
             type="password"
             name="password"
-            value={password}
+            value={password || ''}
             placeholder="Пароль"
             required
             minLength="6"
-            onChange={(e) => {
-              handleChange(e);
-              checkFormValid(e);
-              handleChangeErrorsValidation(e);
-              handleInputsValidation(e);
-            }}
+            onChange={handleChangeValidation}
           />
           <span className="auth__input-error">{errors.password || ''}</span>
         </label>

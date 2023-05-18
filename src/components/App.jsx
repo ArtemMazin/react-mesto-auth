@@ -54,10 +54,9 @@ function App() {
     setIsInfoTooltipOpen(true);
   }
 
-  function handleSubmitRegistration(e) {
+  function handleSubmitRegistration(e, email, password) {
     e.preventDefault();
     setIsLoading(true);
-    const { email, password } = formValue;
 
     apiAuth
       .register(email, password, setErrorMessageRegister)
@@ -89,10 +88,9 @@ function App() {
   function handleLogin() {
     setLoggedIn(true);
   }
-  function handleSubmitLogin(e) {
+  function handleSubmitLogin(e, email, password) {
     e.preventDefault();
     setIsLoading(true);
-    const { email, password } = formValue;
 
     apiAuth
       .login(email, password, setErrorMessageLogin)
