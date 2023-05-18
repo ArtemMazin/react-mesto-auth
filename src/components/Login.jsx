@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useValidation } from '../hooks/useValidation';
 
-function Login({ handleChange, handleSubmitLogin, formValue, isLoading }) {
+function Login({ handleSubmitLogin, isLoading }) {
   const { isFormValid, errors, handleChangeValidation, inputsValid, setInputsValid, resetForm, values, setValues } =
     useValidation();
   const { email, password } = values;

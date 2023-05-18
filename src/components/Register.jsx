@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useValidation } from '../hooks/useValidation';
 
-function Register({ handleChange, handleSubmitRegistration, formValue, isLoading }) {
+function Register({ handleSubmitRegistration, isLoading }) {
   const { isFormValid, errors, handleChangeValidation, inputsValid, setInputsValid, resetForm, values, setValues } =
     useValidation();
   const { email, password } = values;

@@ -34,20 +34,7 @@ function App() {
   const [isRegistrationSuccess, setIsRegistrationSuccess] = useState(false);
   const [errorMessageLogin, setErrorMessageLogin] = useState('');
   const [errorMessageRegister, setErrorMessageRegister] = useState('');
-  const [formValue, setFormValue] = useState({
-    email: '',
-    password: '',
-  });
   const navigate = useNavigate();
-
-  function handleChangeInput(e) {
-    const { name, value } = e.target;
-
-    setFormValue({
-      ...formValue,
-      [name]: value,
-    });
-  }
 
   //регистрация
   function showInfoTooltip() {
@@ -56,6 +43,7 @@ function App() {
 
   function handleSubmitRegistration(e, email, password) {
     e.preventDefault();
+
     setIsLoading(true);
 
     apiAuth
@@ -71,14 +59,7 @@ function App() {
         showInfoTooltip();
         navigate('/sign-up', { replace: true });
       })
-      .finally(() => {
-        //сбрасываем email и password после регистрации для доп. защиты (если пользователь отключит валидацию кнопки submit)
-        setFormValue({
-          email: '',
-          password: '',
-        });
-        setIsLoading(false);
-      });
+      .finally(() => setIsLoading(false));
   }
 
   //логин
@@ -105,14 +86,7 @@ function App() {
         console.log(err);
         showInfoFailLoginPopup();
       })
-      .finally(() => {
-        //сбрасываем email и password
-        setFormValue({
-          email: '',
-          password: '',
-        });
-        setIsLoading(false);
-      });
+      .finally(() => setIsLoading(false));
   }
 
   //токен
@@ -265,9 +239,7 @@ function App() {
             path="/sign-up"
             element={
               <Register
-                handleChange={handleChangeInput}
                 handleSubmitRegistration={handleSubmitRegistration}
-                formValue={formValue}
                 isLoading={isLoading}
               />
             }
@@ -276,9 +248,7 @@ function App() {
             path="/sign-in"
             element={
               <Login
-                handleChange={handleChangeInput}
                 handleSubmitLogin={handleSubmitLogin}
-                formValue={formValue}
                 isLoading={isLoading}
               />
             }
