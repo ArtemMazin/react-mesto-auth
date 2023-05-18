@@ -70,8 +70,4 @@
 @import url(./blocks/popup/__info-icon/_type/popup__info-icon_type_success.css);
 @import url(./blocks/popup/__info-icon/_type/popup__info-icon_type_fail.css);
 @import url(./blocks/popup/__title/_info/popup__title_info.css);
-@import url(./blocks/popup/_type/popup_type_avatar.css);
-@import url(./blocks/popup/_type/popup_type_cards.css);
-@import url(./blocks/popup/_type/popup_type_delete.css);
-@import url(./blocks/popup/_type/popup_type_profile.css);
 @import url(./blocks/popup/_type/popup_type_image.css);
