@@ -32,8 +32,10 @@ function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [email, setEmail] = useState('');
   const [isRegistrationSuccess, setIsRegistrationSuccess] = useState(false);
+  //ошибки с сервера, которые подставляем в попапы при логине/регистрации
   const [errorMessageLogin, setErrorMessageLogin] = useState('');
   const [errorMessageRegister, setErrorMessageRegister] = useState('');
+  //
   const navigate = useNavigate();
 
   //регистрация
@@ -43,7 +45,6 @@ function App() {
 
   function handleSubmitRegistration(e, email, password) {
     e.preventDefault();
-
     setIsLoading(true);
 
     apiAuth
@@ -107,7 +108,7 @@ function App() {
             navigate('/', { replace: true });
           }
         })
-        .catch((err) => console.log(err));
+        .catch(console.error);
     }
   }
 
@@ -117,9 +118,7 @@ function App() {
         setCurrentUser(userInfo);
         setCards(arrayCards);
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch(console.error);
   }, []);
 
   function handleEditProfileClick() {
@@ -158,9 +157,7 @@ function App() {
         setCurrentUser(userInfo);
         closeAllPopups();
       })
-      .catch((err) => {
-        console.log(err);
-      })
+      .catch(console.error)
       .finally(() => setIsLoading(false));
   }
 
@@ -172,9 +169,7 @@ function App() {
         setCurrentUser(userInfo);
         closeAllPopups();
       })
-      .catch((err) => {
-        console.log(err);
-      })
+      .catch(console.error)
       .finally(() => setIsLoading(false));
   }
 
@@ -186,9 +181,7 @@ function App() {
         const newCards = cards.map((c) => (c._id === card._id ? newCard : c));
         setCards(newCards);
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch(console.error);
   }
 
   function handleCardDelete(card) {
@@ -202,9 +195,7 @@ function App() {
         setCards(newCards);
         closeAllPopups();
       })
-      .catch((err) => {
-        console.log(err);
-      })
+      .catch(console.error)
       .finally(() => setIsLoading(false));
   }
   function handleRemoveIconClick(card) {
@@ -220,9 +211,7 @@ function App() {
         setCards([newCard, ...cards]);
         closeAllPopups();
       })
-      .catch((err) => {
-        console.log(err);
-      })
+      .catch(console.error)
       .finally(() => setIsLoading(false));
   }
 

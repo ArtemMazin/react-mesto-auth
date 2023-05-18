@@ -44,12 +44,13 @@ function Header({ loggedIn, setLoggedIn, email }) {
               <button
                 className="header__menu-hamburger"
                 onClick={toggleHideMenu}>
-                <span className="header__menu-bar"></span>
+                <span className="header__menu-bar" />
               </button>
             ) : (
               <button
                 className="header__close-menu-btn"
-                onClick={toggleHideMenu}></button>
+                onClick={toggleHideMenu}
+              />
             )}
             <div className="header__profile header__profile_mobile">
               <p className="header__email">{email}</p>

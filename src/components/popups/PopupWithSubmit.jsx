@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
 import PopupWithForm from './PopupWithForm';
-import { useValidation } from '../../hooks/useValidation';
+import { useFormAndValidation } from '../../hooks/useFormAndValidation';
 
 function PopupWithSubmit({ isOpen, onClose, onSubmit, card, isLoading }) {
-  const { isFormValid, setIsFormValid } = useValidation();
+  const { isFormValid, setIsFormValid } = useFormAndValidation();
 
   const handleSubmit = (e) => {
     e.preventDefault();

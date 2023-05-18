@@ -1,9 +1,10 @@
 import { useRef, useEffect } from 'react';
 import PopupWithForm from './PopupWithForm';
-import { useValidation } from '../../hooks/useValidation';
+import { useFormAndValidation } from '../../hooks/useFormAndValidation';
 
 function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar, isLoading }) {
-  const { isFormValid, errors, handleChangeValidation, inputsValid, setInputsValid, resetForm } = useValidation();
+  const { isFormValid, errors, handleChangeValidation, inputsValid, setInputsValid, resetForm } =
+    useFormAndValidation();
   const input = useRef();
 
   useEffect(() => {

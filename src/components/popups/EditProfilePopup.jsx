@@ -1,12 +1,12 @@
 import { useEffect, useContext } from 'react';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import PopupWithForm from './PopupWithForm';
-import { useValidation } from '../../hooks/useValidation';
+import { useFormAndValidation } from '../../hooks/useFormAndValidation';
 
 function EditProfilePopup({ isOpen, onClose, onUpdateUser, isLoading }) {
   const currentUser = useContext(CurrentUserContext);
   const { isFormValid, errors, handleChangeValidation, inputsValid, setInputsValid, resetForm, values, setValues } =
-    useValidation();
+    useFormAndValidation();
 
   useEffect(() => {
     //сначала очищаем форму при открытии

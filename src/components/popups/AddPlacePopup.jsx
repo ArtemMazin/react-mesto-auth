@@ -1,10 +1,10 @@
 import { useEffect } from 'react';
 import PopupWithForm from './PopupWithForm';
-import { useValidation } from '../../hooks/useValidation';
+import { useFormAndValidation } from '../../hooks/useFormAndValidation';
 
 function AddPlacePopup({ isOpen, onClose, onAddPlaceSubmit, isLoading }) {
   const { isFormValid, errors, handleChangeValidation, inputsValid, setInputsValid, resetForm, values } =
-    useValidation();
+    useFormAndValidation();
 
   useEffect(() => {
     //при открытии попапа инпуты валидны
